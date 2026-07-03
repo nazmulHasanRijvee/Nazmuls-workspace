@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter8_workspace/presentation/widgets/about_section.dart';
 import 'package:flutter8_workspace/presentation/widgets/message_section.dart';
+
+import '../../data/utils/asset_paths.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(
+        AssetImage(AssetPaths.madamImage),
+        context
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -35,15 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
         child: SingleChildScrollView(
 
-          child: Column(
-            mainAxisAlignment: .center,
+          child: SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: .center,
 
-            children: [
+                children: [
 
-              buildMessageSection()
+                  buildMessageSection(),
+                  buildAboutSection()
 
-            ],
+                ],
 
+              ),
+            ),
           ),
         ),
 
@@ -64,6 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
       child: MessageSection(
           onTap: () => _isTapped.value = false
       ),
+    );
+  }
+
+  Widget buildAboutSection() {
+    return ValueListenableBuilder(
+      valueListenable: _isTapped,
+      builder: (context, value, child){
+        return Visibility(
+            visible: !value,
+            child: child ?? const SizedBox.shrink()
+        );
+      },
+      child: AboutSection()
     );
   }
 }

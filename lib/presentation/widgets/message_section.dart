@@ -42,7 +42,9 @@ class _MessageSectionState extends State<MessageSection> {
         buildUnreadText()
       ],
     );
+
   }
+
 
   Widget buildUnreadText() {
     return buildInkWell(
@@ -52,7 +54,7 @@ class _MessageSectionState extends State<MessageSection> {
         builder: (context, value, child) {
           return Text(
                   AppStrings.unreadMessage,
-                  style: context.theme.textTheme.bodyLarge
+                  style: context.theme.textTheme.titleLarge
                   !.copyWith(
                       color: value ? AppColors.hoveredTextColor : AppColors.messageTextColor
                   )
